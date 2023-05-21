@@ -30,7 +30,7 @@ fi
 
 # 3. Message
 if [ -z "$MESSAGE" ]; then
-  MESSAGE="server ip update:"
+  MESSAGE="server ip update-"
 fi
 
 # #####################################################################
