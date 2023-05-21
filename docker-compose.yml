@@ -1,0 +1,26 @@
+version: "3"
+services:
+  cloudflare-ddns:
+    image: anujdatar/discord-ip-updater
+    container_name: discord-ip-updater
+    restart: unless-stopped
+    environment:
+      - WEBHOOK_FILE=/run/secrets/webhook
+      - RECORD_TYPE=AAAA
+      - MESSAGE="Server IP updated to:"
+      # - FREQUENCY=1
+    secrets:
+      - webhook
+
+networks:
+  default:
+    driver: bridge
+    enable_ipv6: true
+    ipam:
+      driver: default
+      config:
+        - subnet: fd00::/64
+
+secrets:
+  webhook:
+    file: webhook.txt
