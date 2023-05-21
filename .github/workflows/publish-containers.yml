@@ -1,4 +1,4 @@
-name: Publish Cloudflare-DDNS Docker Image to Docker Hub
+name: Publish discord-ip-updater container image
 
 # Controls when the action will be run
 on:
@@ -28,7 +28,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ghcr.io/${{ github.actor }}/cloudflare-ddns
+          images: ghcr.io/${{ github.actor }}/discord-ip-updater
           tags: |
             type=raw,value={{date 'YY.MM.DD'}}
           flavor: |
