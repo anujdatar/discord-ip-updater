@@ -15,7 +15,7 @@ if [ -z "$WEBHOOK" ]; then
   echo "Please enter valid WEBHOOK env variable or WEBHOOK_FILE secret"
   exit 1
 else
-  echo "Webhook --- OK"
+  echo "Webhook    --- OK"
 fi
 
 # 2. Record Type
@@ -32,6 +32,7 @@ fi
 if [ -z "$MESSAGE" ]; then
   MESSAGE="server ip update-"
 fi
+echo "Update message: $MESSAGE   --- OK"
 
 # #####################################################################
 # Step 2: Save to config file

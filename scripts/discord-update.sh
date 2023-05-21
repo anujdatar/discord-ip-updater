@@ -52,6 +52,7 @@ if [ "$OLD_IP" == "$CURRENT_IP" ]; then
   echo "IP address has not changed. Update not required"
 else
   echo "Sending updated IP to discord"
+  echo $MESSAGE
 
   curl -s --header "Content-Type:application/json" \
     --request POST \
@@ -60,7 +61,7 @@ else
 
   if [ $? -ne 0 ]; then
     echo "Error sending message to discord"
-    # exit 1
+    exit 1
   else
     echo "success"
   fi
