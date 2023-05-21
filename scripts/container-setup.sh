@@ -30,9 +30,8 @@ fi
 
 # 3. Message
 if [ -z "$MESSAGE" ]; then
-  MESSAGE="server ip update-"
+  MESSAGE="server ip update: "
 fi
-echo "Update message: $MESSAGE   --- OK"
 
 # #####################################################################
 # Step 2: Save to config file

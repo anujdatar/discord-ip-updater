@@ -7,7 +7,7 @@ services:
     environment:
       - WEBHOOK_FILE=/run/secrets/webhook
       - RECORD_TYPE=AAAA
-      - MESSAGE="Server IP updated to-"
+      - MESSAGE=Server IP updated to-
       # - FREQUENCY=1
     secrets:
       - webhook
