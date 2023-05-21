@@ -56,7 +56,7 @@ else
 
   curl -s --header "Content-Type:application/json" \
     --request POST \
-    --data "{\"content\": \"$MESSAGE $CURRENT_IP\"}" \
+    --data-raw "{\"content\": \"$MESSAGE $CURRENT_IP\"}" \
     $WEBHOOK
 
   if [ $? -ne 0 ]; then
