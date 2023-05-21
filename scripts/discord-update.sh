@@ -31,7 +31,7 @@ if [ $? -ne 0 ]; then
 fi
 
 if [ ! -z $CURRENT_IP6 ]; then
-  CURRENT_IP=$(echo $CURRENT_IP6 | sed -r 's/[:]+/\:/g')
+  CURRENT_IP=$(echo $CURRENT_IP6 | sed -r 's/[:]+/-/g')
 fi
 
 if [ -z $CURRENT_IP ]; then
