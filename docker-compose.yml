@@ -1,14 +1,15 @@
 version: "3"
 services:
-  cloudflare-ddns:
-    image: anujdatar/discord-ip-updater
+  discord-ip-updater:
+    image: ghcr.io/anujdatar/discord-ip-updater
     container_name: discord-ip-updater
     restart: unless-stopped
     environment:
       - WEBHOOK_FILE=/run/secrets/webhook
+      - TZ=America/New_York
       - RECORD_TYPE=AAAA
+      - FREQUENCY=1
       - MESSAGE=Server IP updated to-
-      # - FREQUENCY=1
     secrets:
       - webhook
 
