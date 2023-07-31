@@ -38,33 +38,26 @@ elif [ "$RECORD_TYPE" == "AAAA" ]; then
 fi
 
 if [ -z $CURRENT_IP ]; then
-    echo "No public IP found: check internet connection or network settings"
-    exit 1
+  echo "[$(date)]: Public IP not found, check internet connection"
+  exit 1
 fi
-echo "Current time: [$(date)]"
-echo "Current Public IP: $CURRENT_IP"
 # #####################################################################
-
-
-# #####################################################################
-# Step 2: Send discord message if IP has changed
+# Step 2: check against old ip
 OLD_IP=$(cat /old_record_ip)
-echo "Stored IP address $OLD_IP"
-
 if [ "$OLD_IP" == "$CURRENT_IP" ]; then
-  echo "IP address has not changed. Update not required"
+  echo "[$(date)]: IP unchanged, not updating.  IP: $CURRENT_IP"
+  exit 0
+fi
+# #####################################################################
+# Step 3: send updated ip to discord
+curl -s --header "Content-Type:application/json" \
+  --request POST \
+  --data "{\"content\": \"$MESSAGE $CURRENT_IP\"}" \
+  $WEBHOOK
+
+if [ $? -ne 0 ]; then
+  echo "[$(date)]: Discord message failed. Curr IP: $CURRENT_IP"
 else
-  echo "Sending updated IP to discord"
-
-  curl -s --header "Content-Type:application/json" \
-    --request POST \
-    --data "{\"content\": \"$MESSAGE $CURRENT_IP\"}" \
-    $WEBHOOK
-
-  if [ $? -ne 0 ]; then
-    echo "Error sending message to discord"
-    # exit 1
-  else
-    echo "success"
-  fi
+  echo "[$(date)]: Discord message successful.. IP: $CURRENT_IP"
+  echo $CURRENT_IP > /old_record_ip
 fi
