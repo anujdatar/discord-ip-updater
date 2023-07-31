@@ -31,30 +31,10 @@ get_ip6() {
 }
 # #####################################################################
 # Step 1: Get the current IP address
-echo fetching current IP address
-
-
 if [ "$RECORD_TYPE" == "A" ]; then
-	CURRENT_IP=$(curl -s https://api.ipify.org || curl -s https://ipv4.icanhazip.com/)
-
-	# check cloudflare's dns server if above method doesn't work
-	if [ -z $CURRENT_IP ]; then
-		echo using cloudflare whoami to find ip
-    CURRENT_IP=$(dig txt ch +short whoami.cloudflare @1.1.1.1 | tr -d '"')
-	fi
+	CURRENT_IP=$(get_ip4)
 elif [ "$RECORD_TYPE" == "AAAA" ]; then
-	CURRENT_IP=$(curl -s https://api6.ipify.org || curl -s https://ipv6.icanhazip.com/)
-
-	# check cloudflare's dns server if above method doesn't work
-	if [ -z $CURRENT_IP ]; then
-		echo using cloudflare whoami to find ip
-    CURRENT_IP=$(dig txt ch +short whoami.cloudflare @2606:4700:4700::1111 | tr -d '"')
-	fi
-fi
-
-if [ $? -ne 0 ]; then
-  echo "Error fetching current IP address"
-  exit 1
+	CURRENT_IP=$(get_ip6)
 fi
 
 if [ -z $CURRENT_IP ]; then
