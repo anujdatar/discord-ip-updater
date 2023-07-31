@@ -8,13 +8,13 @@ LABEL org.opencontainers.image.licenses=MIT
 
 # default env variables
 ENV FREQUENCY 5
-ENV METHOD ZONE
+ENV RECORD_TYPE A
 
 # install dependencies
 RUN apk update && apk add --no-cache tzdata curl bind-tools jq
 
 # copy scripts over
 COPY scripts /
-RUN chmod 700 /container-setup.sh /entry.sh /discord-update.sh
+RUN chmod 700 /entry.sh /container-setup.sh /discord-update.sh
 
 CMD ["/entry.sh"]
