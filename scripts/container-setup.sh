@@ -6,8 +6,17 @@ print_breaker() {
 
 echo "Container spun up at: [$(date)]"
 # #####################################################################
-# Step 1: Check auth secrets and env variables
-# 1. Webhook
+# Step 1: set up timezone
+if [ -z "$TZ" ]; then
+  echo "TZ environment variable not set. Using default: UTC"
+else
+  echo "Setting timezone to $TZ"
+  ln -snf /usr/share/zoneinfo/$TZ /etc/localtime
+  echo $TZ > /etc/timezone
+fi
+
+echo "Starting Discord-IP-Updater: [$(date)]"
+print_breaker
 if [ -f "$WEBHOOK_FILE" ]; then
   WEBHOOK=$(cat $WEBHOOK_FILE)
 fi
